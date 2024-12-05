@@ -41,36 +41,30 @@ A lightweight web application for estimating the costs of fiber project areas. T
   git clone <repository-url> fiber-estimator
   cd fiber-estimator
   ```
-
 4. **Set Up a Python Virtual Environment**
   ```bash
   python3 -m venv venv
   source venv/bin/activate
   ```
-
 5. **Install Python Dependencies**
   ```bash
   pip install -r requirements.txt
   ```
-
 6. **Create Necessary Directories**
   ```bash
   mkdir -p app/static/uploads
   mkdir -p data
   chmod -R 755 app/static/uploads
   ```
-
 7. **Initialize Data Files**
   ```bash
   echo "[]" > data/units.json
   echo "[]" > data/projects.json
   ```
-
 8. **Run The Application**
   ```bash
   python run.py
   ```
-
 9. **Access The Application**
   ```bash
    http://<server-ip>:5000
