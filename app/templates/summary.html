@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Project Summary: {{ project.name }}</h1>
+<p><strong>Total Homes Passed:</strong> {{ project.homes_passed }}</p>
+<p><strong>Current Customers:</strong> {{ project.current_customers }}</p>
+<p><strong>Notes:</strong> {{ project.notes }}</p>
+
+{% if project.image %}
+<img src="/static/uploads/{{ project.image }}" alt="Project Image" style="max-width: 100%; height: auto;">
+{% endif %}
+
+<h2>Unit Breakdown</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Unit Name</th>
+            <th>Quantity</th>
+            <th>Cost per Unit</th>
+            <th>Total Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for unit in unit_breakdown %}
+        <tr>
+            <td>{{ unit.name }}</td>
+            <td>{{ unit.quantity }}</td>
+            <td>${{ unit.cost }}</td>
+            <td>${{ unit.total_cost }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Summary</h2>
+<p><strong>Total Cost:</strong> ${{ total_cost }}</p>
+<p><strong>Cost per Home (100% adoption):</strong> ${{ cost_per_home }}</p>
+<p><strong>Cost per Customer:</strong> ${{ cost_per_customer }}</p>
+<p><strong>ROI:</strong> {{ roi | round(2) }}</p>
+{% endblock %}
