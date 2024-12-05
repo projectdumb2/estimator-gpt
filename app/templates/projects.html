@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Manage Projects</h1>
+
+<form method="POST" enctype="multipart/form-data" action="/projects">
+    <label for="name">Project Name:</label>
+    <input type="text" name="name" required>
+
+    <label for="homes_passed">Total Homes Passed:</label>
+    <input type="number" name="homes_passed" required>
+
+    <label for="current_customers">Current Customers:</label>
+    <input type="number" name="current_customers" required>
+
+    <label for="notes">Notes:</label>
+    <textarea name="notes"></textarea>
+
+    <label for="image">Upload Image:</label>
+    <input type="file" name="image">
+
+    <button type="submit">Add Project</button>
+</form>
+
+<h2>Existing Projects</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Homes Passed</th>
+            <th>Current Customers</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.name }}</td>
+            <td>{{ project.homes_passed }}</td>
+            <td>{{ project.current_customers }}</td>
+            <td>
+                <a href="/summary/{{ project.id }}">View Summary</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
