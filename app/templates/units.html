@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Manage Units</h1>
+
+<form method="POST" action="/units">
+    <label for="name">Unit Name:</label>
+    <input type="text" name="name" required>
+
+    <label for="cost">Cost (per unit/foot/hour):</label>
+    <input type="number" name="cost" step="0.01" required>
+
+    <label for="type">Unit Type:</label>
+    <select name="type" required>
+        <option value="each">Per Each</option>
+        <option value="foot">Per Foot</option>
+        <option value="hour">Per Hour</option>
+        <option value="income">Average Income Per Home</option>
+    </select>
+
+    <label for="income">Income (if applicable):</label>
+    <input type="number" name="income" step="0.01">
+
+    <button type="submit">Add Unit</button>
+</form>
+
+<h2>Existing Units</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for unit in units %}
+        <tr>
+            <td>{{ unit.name }}</td>
+            <td>${{ unit.cost }}</td>
+            <td>{{ unit.type }}</td>
+            <td>
+                <a href="/units/edit/{{ unit.id }}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
