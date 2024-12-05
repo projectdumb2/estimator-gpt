@@ -1,48 +1,72 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Manage Projects</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Manage Projects</h1>
 
-<form method="POST" enctype="multipart/form-data" action="/projects">
-    <label for="name">Project Name:</label>
-    <input type="text" name="name" required>
+    <form method="POST" enctype="multipart/form-data" action="/projects" class="p-4 border rounded shadow-sm bg-light">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Project Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="homes_passed" class="form-label">Total Homes Passed:</label>
+                <input type="number" name="homes_passed" id="homes_passed" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="current_customers" class="form-label">Current Customers:</label>
+                <input type="number" name="current_customers" id="current_customers" class="form-control" required>
+            </div>
+        </div>
 
-    <label for="homes_passed">Total Homes Passed:</label>
-    <input type="number" name="homes_passed" required>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes:</label>
+            <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+        </div>
 
-    <label for="current_customers">Current Customers:</label>
-    <input type="number" name="current_customers" required>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image:</label>
+            <input type="file" name="image" id="image" class="form-control">
+        </div>
 
-    <label for="notes">Notes:</label>
-    <textarea name="notes"></textarea>
+        <div class="mb-3">
+            <label class="form-label">Select Units and Quantities:</label>
+            <div id="unitSelection">
+                {% for unit in units %}
+                <div class="input-group mb-2">
+                    <span class="input-group-text">{{ unit.name }} ({{ unit.type }})</span>
+                    <input type="number" name="unit_quantity_{{ unit.id }}" class="form-control" placeholder="Quantity">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-    <label for="image">Upload Image:</label>
-    <input type="file" name="image">
+        <button type="submit" class="btn btn-primary">Add Project</button>
+    </form>
 
-    <button type="submit">Add Project</button>
-</form>
-
-<h2>Existing Projects</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Homes Passed</th>
-            <th>Current Customers</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for project in projects %}
-        <tr>
-            <td>{{ project.name }}</td>
-            <td>{{ project.homes_passed }}</td>
-            <td>{{ project.current_customers }}</td>
-            <td>
-                <a href="/summary/{{ project.id }}">View Summary</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <h2 class="text-center my-4">Existing Projects</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Homes Passed</th>
+                <th>Current Customers</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.homes_passed }}</td>
+                <td>{{ project.current_customers }}</td>
+                <td>
+                    <a href="/summary/{{ project.id }}" class="btn btn-info btn-sm">View Summary</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
